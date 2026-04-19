@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress — Behavior Therapist Course</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .progress-row {
+      padding: var(--s-5);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      margin-bottom: var(--s-4);
+      background: var(--paper);
+    }
+    .progress-row.submitted { border-left: 3px solid var(--sage); }
+    .progress-row.pending { border-left: 3px solid var(--line); opacity: 0.65; }
+    .progress-row.feedback { border-left: 3px solid var(--terracotta); }
+    .progress-row h3 { margin-top: 0; }
+    .progress-meta {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      margin-top: var(--s-2);
+    }
+    .submission-preview {
+      margin-top: var(--s-4);
+      padding: var(--s-3) var(--s-4);
+      background: var(--paper-tint);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      max-height: 120px;
+      overflow: hidden;
+      position: relative;
+    }
+    .submission-preview::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0; height: 30px;
+      background: linear-gradient(to bottom, transparent, var(--paper-tint));
+    }
+    .feedback-preview {
+      margin-top: var(--s-4);
+      padding: var(--s-4);
+      background: var(--sage-tint);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    .loading { color: var(--ink-muted); font-style: italic; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">Behavior Therapist Course</a>
+    <nav>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="syllabus.html">Syllabus</a></li>
+        <li><a href="modules/">Modules</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="grades.html" class="active">Progress</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="module-header">
+    <div class="container-narrow">
+      <span class="eyebrow">Your progress</span>
+      <h1 id="greeting">Your progress</h1>
+      <p class="lead">All your homework submissions and instructor feedback in one place. You see only your own work.</p>
+    </div>
+  </section>
+
+  <div class="container-narrow">
+    <div class="module-section">
+      <div id="progress-list" class="loading">Loading your progress…</div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <div class="brand">Behavior Therapist Course</div>
+      <p>International cohort · 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/supabase-config.js"></script>
+<script type="module">
+  import { supabase, requireAuth, getProfile, updateNavAuth, escapeHtml } from './assets/js/auth.js';
+
+  updateNavAuth('');
+
+  const user = await requireAuth('');
+  if (!user) { /* redirected */ }
+
+  const profile = await getProfile();
+  if (profile?.full_name) {
+    document.getElementById('greeting').textContent = `${profile.full_name.split(' ')[0]}'s progress`;
+  }
+
+  // Load all assignments + the user's submissions in parallel
+  const [{ data: assignments }, { data: submissions }] = await Promise.all([
+    supabase.from('assignments').select('*').order('module_number'),
+    supabase.from('submissions').select('*').eq('user_id', user.id)
+  ]);
+
+  const submissionByAssignment = {};
+  (submissions || []).forEach(s => { submissionByAssignment[s.assignment_id] = s; });
+
+  const list = document.getElementById('progress-list');
+  list.className = '';
+  list.innerHTML = '';
+
+  if (!assignments || assignments.length === 0) {
+    list.innerHTML = '<p>No assignments found.</p>';
+  } else {
+    assignments.forEach(a => {
+      const sub = submissionByAssignment[a.id];
+      let rowClass = 'pending';
+      let statusText = a.open ? 'Not yet submitted' : 'Module not yet open';
+      let submissionHtml = '';
+      let feedbackHtml = '';
+
+      if (sub) {
+        rowClass = sub.feedback ? 'feedback' : 'submitted';
+        statusText = sub.feedback
+          ? `Feedback received ${new Date(sub.feedback_at).toLocaleDateString()}`
+          : `Submitted ${new Date(sub.submitted_at).toLocaleDateString()}`;
+
+        submissionHtml = `
+          <div class="submission-preview">${escapeHtml(sub.submission_text.slice(0, 300))}${sub.submission_text.length > 300 ? '…' : ''}</div>
+        `;
+
+        if (sub.feedback) {
+          feedbackHtml = `
+            <div class="feedback-preview">
+              <strong>Instructor feedback</strong><br>
+              ${escapeHtml(sub.feedback)}
+            </div>
+          `;
+        }
+      }
+
+      const row = document.createElement('div');
+      row.className = `progress-row ${rowClass}`;
+      row.innerHTML = `
+        <h3>Module ${String(a.module_number).padStart(2, '0')} — ${escapeHtml(a.title)}</h3>
+        <div class="progress-meta">${escapeHtml(statusText)} · Due ${escapeHtml(a.due_description || '')}</div>
+        ${submissionHtml}
+        ${feedbackHtml}
+      `;
+      list.appendChild(row);
+    });
+  }
+</script>
+
+</body>
+</html>

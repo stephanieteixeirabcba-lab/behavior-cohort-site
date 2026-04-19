@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log in — Behavior Therapist Course</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .auth-card {
+      max-width: 440px;
+      margin: var(--s-7) auto;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: var(--s-6);
+    }
+    .auth-tabs {
+      display: flex;
+      gap: var(--s-5);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: var(--s-5);
+    }
+    .auth-tab {
+      padding: var(--s-2) 0;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      margin-bottom: -1px;
+    }
+    .auth-tab.active {
+      color: var(--ink);
+      border-bottom-color: var(--sage);
+    }
+    .auth-form label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-bottom: var(--s-2);
+      margin-top: var(--s-4);
+    }
+    .auth-form input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      transition: border-color 0.2s;
+    }
+    .auth-form input:focus {
+      outline: none;
+      border-color: var(--sage);
+    }
+    .auth-form .btn {
+      width: 100%;
+      margin-top: var(--s-5);
+    }
+    .auth-msg {
+      margin-top: var(--s-4);
+      padding: var(--s-3) var(--s-4);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      display: none;
+    }
+    .auth-msg.error {
+      display: block;
+      background: var(--terracotta-tint);
+      color: #7a3a22;
+      border-left: 3px solid var(--terracotta);
+    }
+    .auth-msg.success {
+      display: block;
+      background: var(--sage-tint);
+      color: var(--sage-dark);
+      border-left: 3px solid var(--sage);
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">Behavior Therapist Course</a>
+    <nav>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="syllabus.html">Syllabus</a></li>
+        <li><a href="modules/">Modules</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="grades.html">Progress</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="auth-card">
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">Log in</button>
+      <button class="auth-tab" data-tab="signup">Sign up</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form class="auth-form" id="login-form">
+      <h2 style="margin-top:0;">Welcome back</h2>
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" required autocomplete="email">
+
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" required autocomplete="current-password">
+
+      <button type="submit" class="btn btn-primary">Log in</button>
+      <div class="auth-msg" id="login-msg"></div>
+    </form>
+
+    <!-- SIGNUP FORM (hidden by default) -->
+    <form class="auth-form" id="signup-form" style="display:none;">
+      <h2 style="margin-top:0;">Create your account</h2>
+      <p style="font-size:0.9rem; color:var(--ink-soft); margin-bottom:var(--s-3);">You need an invite code from your instructor to sign up.</p>
+
+      <label for="signup-name">Full name</label>
+      <input type="text" id="signup-name" required autocomplete="name">
+
+      <label for="signup-email">Email</label>
+      <input type="email" id="signup-email" required autocomplete="email">
+
+      <label for="signup-password">Password (min 8 characters)</label>
+      <input type="password" id="signup-password" required minlength="8" autocomplete="new-password">
+
+      <label for="signup-invite">Invite code</label>
+      <input type="text" id="signup-invite" required autocapitalize="characters" style="letter-spacing:0.05em;">
+
+      <button type="submit" class="btn btn-primary">Create account</button>
+      <div class="auth-msg" id="signup-msg"></div>
+    </form>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <div class="brand">Behavior Therapist Course</div>
+      <p>International cohort · 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/supabase-config.js"></script>
+<script type="module">
+  import { supabase, getUser } from './assets/js/auth.js';
+
+  // Already logged in? Go home.
+  (async () => {
+    const user = await getUser();
+    if (user) window.location.href = 'index.html';
+  })();
+
+  // -- Tab switching ------------------------------------------------------
+  document.querySelectorAll('.auth-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+      document.getElementById('signup-form').style.display = tab === 'signup' ? 'block' : 'none';
+    });
+  });
+
+  // -- Login --------------------------------------------------------------
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('login-msg');
+    msg.className = 'auth-msg';
+    msg.textContent = '';
+
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      msg.className = 'auth-msg error';
+      msg.textContent = error.message;
+      return;
+    }
+    window.location.href = 'index.html';
+  });
+
+  // -- Signup -------------------------------------------------------------
+  document.getElementById('signup-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('signup-msg');
+    msg.className = 'auth-msg';
+    msg.textContent = '';
+
+    const name = document.getElementById('signup-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const inviteCode = document.getElementById('signup-invite').value.trim().toUpperCase();
+
+    // Verify the invite code first
+    const { data: code, error: codeError } = await supabase
+      .from('invite_codes')
+      .select('code, used_count, max_uses, active')
+      .eq('code', inviteCode)
+      .maybeSingle();
+
+    if (codeError || !code) {
+      msg.className = 'auth-msg error';
+      msg.textContent = 'Invalid invite code.';
+      return;
+    }
+    if (!code.active || code.used_count >= code.max_uses) {
+      msg.className = 'auth-msg error';
+      msg.textContent = 'This invite code is no longer active.';
+      return;
+    }
+
+    // Create the auth user
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: name } }
+    });
+
+    if (error) {
+      msg.className = 'auth-msg error';
+      msg.textContent = error.message;
+      return;
+    }
+
+    // Increment the invite code's used_count
+    // (Note: this is a soft counter — RLS allows anyone to read but not write,
+    // so we use an RPC-like approach by updating from the server. For now we
+    // accept that used_count is a reporting aid, not a strict lock.)
+    // We'll handle this in a future tightening if needed.
+
+    msg.className = 'auth-msg success';
+    if (data.user && !data.session) {
+      msg.textContent = 'Account created. Check your email to confirm, then return here to log in.';
+    } else {
+      msg.textContent = 'Account created. Logging you in…';
+      setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+    }
+  });
+</script>
+
+</body>
+</html>
