@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Behavior Therapist Course</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .admin-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--s-5);
+      flex-wrap: wrap;
+      gap: var(--s-3);
+    }
+    .announcement-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-4);
+    }
+    .announcement-row {
+      padding: var(--s-5);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .announcement-row.draft {
+      border-left: 3px solid var(--terracotta);
+    }
+    .announcement-row.published {
+      border-left: 3px solid var(--sage);
+    }
+    .announcement-row h3 {
+      margin: 0 0 var(--s-2) 0;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+    }
+    .announcement-row .meta {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      margin-bottom: var(--s-3);
+    }
+    .announcement-row .body {
+      white-space: pre-wrap;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      margin-bottom: var(--s-4);
+      font-size: 0.95rem;
+    }
+    .announcement-actions {
+      display: flex;
+      gap: var(--s-2);
+      flex-wrap: wrap;
+    }
+    .btn-small {
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+    }
+    .btn-danger {
+      background: transparent;
+      color: var(--terracotta);
+      border: 1px solid var(--terracotta);
+    }
+    .btn-danger:hover {
+      background: var(--terracotta);
+      color: var(--paper);
+    }
+    .editor-card {
+      padding: var(--s-6);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      margin-bottom: var(--s-6);
+    }
+    .editor-card label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-bottom: var(--s-2);
+      margin-top: var(--s-4);
+    }
+    .editor-card label:first-of-type { margin-top: 0; }
+    .editor-card input[type="text"],
+    .editor-card textarea {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .editor-card textarea {
+      min-height: 150px;
+      line-height: 1.6;
+      resize: vertical;
+    }
+    .editor-card input:focus,
+    .editor-card textarea:focus {
+      outline: none;
+      border-color: var(--sage);
+    }
+    .editor-card .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: var(--s-2);
+      margin-top: var(--s-4);
+    }
+    .editor-card .checkbox-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+    }
+    .editor-card .button-row {
+      display: flex;
+      gap: var(--s-3);
+      margin-top: var(--s-5);
+      flex-wrap: wrap;
+    }
+    .admin-status {
+      margin-top: var(--s-3);
+      padding: var(--s-3) var(--s-4);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      display: none;
+    }
+    .admin-status.error {
+      display: block;
+      background: var(--terracotta-tint);
+      color: #7a3a22;
+      border-left: 3px solid var(--terracotta);
+    }
+    .admin-status.success {
+      display: block;
+      background: var(--sage-tint);
+      color: var(--sage-dark);
+      border-left: 3px solid var(--sage);
+    }
+    .submissions-summary {
+      background: var(--paper-tint);
+      border-radius: var(--radius);
+      padding: var(--s-5);
+      margin-top: var(--s-5);
+    }
+    .submissions-summary table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .submissions-summary th,
+    .submissions-summary td {
+      text-align: left;
+      padding: var(--s-3) var(--s-2);
+      border-bottom: 1px solid var(--line);
+    }
+    .submissions-summary th {
+      font-weight: 500;
+      color: var(--ink-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">Behavior Therapist Course</a>
+    <nav>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="syllabus.html">Syllabus</a></li>
+        <li><a href="modules/">Modules</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="grades.html">Progress</a></li>
+        <li><a href="admin.html" class="active">Admin</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="module-header">
+    <div class="container-narrow">
+      <span class="eyebrow">Admin</span>
+      <h1>Manage announcements</h1>
+      <p class="lead">Write, edit, and publish announcements for your cohort. Drafts are only visible to you.</p>
+    </div>
+  </section>
+
+  <div class="container-narrow">
+
+    <!-- Editor -->
+    <div class="module-section">
+      <h2 id="editor-title">Write a new announcement</h2>
+
+      <div class="editor-card">
+        <form id="announcement-form">
+          <input type="hidden" id="announcement-id" value="">
+
+          <label for="announcement-title-input">Title</label>
+          <input type="text" id="announcement-title-input" required placeholder="e.g., Meeting 1 — link and prep reminder">
+
+          <label for="announcement-body-input">Body</label>
+          <textarea id="announcement-body-input" required placeholder="Write your announcement. Line breaks and simple formatting are preserved."></textarea>
+
+          <div class="checkbox-row">
+            <input type="checkbox" id="announcement-publish">
+            <label for="announcement-publish" style="margin: 0; font-size: 0.95rem; color: var(--ink);">Publish now (uncheck to save as draft)</label>
+          </div>
+
+          <div class="button-row">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" id="cancel-edit-btn" class="btn btn-secondary" style="display:none;">Cancel edit</button>
+          </div>
+
+          <div class="admin-status" id="admin-status"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- List of existing -->
+    <div class="module-section">
+      <div class="admin-toolbar">
+        <h2 style="margin: 0;">All announcements</h2>
+      </div>
+      <div id="announcement-list" class="announcement-list">
+        <div style="color:var(--ink-muted); font-style:italic;">Loading…</div>
+      </div>
+    </div>
+
+    <!-- Submissions overview -->
+    <div class="module-section">
+      <h2>Submission overview</h2>
+      <p style="color: var(--ink-soft);">Quick view of homework submissions across all participants. Use Supabase's Table Editor for the full detail view and to leave feedback.</p>
+      <div class="submissions-summary">
+        <table id="submissions-table">
+          <thead>
+            <tr>
+              <th>Module</th>
+              <th>Submissions</th>
+              <th>With feedback</th>
+              <th>Awaiting feedback</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="4" style="color:var(--ink-muted); font-style:italic;">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <div class="brand">Behavior Therapist Course</div>
+      <p>International cohort · 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/supabase-config.js"></script>
+<script type="module">
+  import { supabase, requireAuth, getProfile, updateNavAuth, escapeHtml } from './assets/js/auth.js';
+
+  // Gate: must be logged in
+  const user = await requireAuth('');
+  if (!user) throw new Error('not authed');
+
+  updateNavAuth('');
+
+  // Additional gate: must be admin
+  const profile = await getProfile();
+  if (profile?.role !== 'admin') {
+    // Not admin — kick back to home
+    alert('You need to be an admin to access this page.');
+    window.location.href = 'index.html';
+    throw new Error('not admin');
+  }
+
+  const form = document.getElementById('announcement-form');
+  const idInput = document.getElementById('announcement-id');
+  const titleInput = document.getElementById('announcement-title-input');
+  const bodyInput = document.getElementById('announcement-body-input');
+  const publishCheckbox = document.getElementById('announcement-publish');
+  const statusEl = document.getElementById('admin-status');
+  const editorTitle = document.getElementById('editor-title');
+  const cancelBtn = document.getElementById('cancel-edit-btn');
+  const listEl = document.getElementById('announcement-list');
+
+  function resetForm() {
+    idInput.value = '';
+    titleInput.value = '';
+    bodyInput.value = '';
+    publishCheckbox.checked = false;
+    editorTitle.textContent = 'Write a new announcement';
+    cancelBtn.style.display = 'none';
+  }
+
+  function showStatus(msg, type) {
+    statusEl.className = 'admin-status ' + type;
+    statusEl.textContent = msg;
+    if (type === 'success') {
+      setTimeout(() => { statusEl.className = 'admin-status'; }, 3000);
+    }
+  }
+
+  // Save (insert or update)
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = idInput.value;
+    const payload = {
+      title: titleInput.value.trim(),
+      body: bodyInput.value.trim(),
+      published: publishCheckbox.checked
+    };
+
+    let error;
+    if (id) {
+      // update
+      ({ error } = await supabase
+        .from('announcements')
+        .update(payload)
+        .eq('id', id));
+    } else {
+      // insert
+      payload.created_by = user.id;
+      ({ error } = await supabase
+        .from('announcements')
+        .insert(payload));
+    }
+
+    if (error) {
+      showStatus('Error: ' + error.message, 'error');
+      return;
+    }
+    showStatus(id ? 'Announcement updated.' : 'Announcement saved.', 'success');
+    resetForm();
+    await loadAnnouncements();
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    resetForm();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  async function loadAnnouncements() {
+    const { data, error } = await supabase
+      .from('announcements')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      listEl.innerHTML = `<div style="color:var(--terracotta);">Error loading: ${escapeHtml(error.message)}</div>`;
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      listEl.innerHTML = '<div style="color:var(--ink-muted); font-style:italic;">No announcements yet. Write one above.</div>';
+      return;
+    }
+
+    listEl.innerHTML = data.map(a => {
+      const dateStr = new Date(a.created_at).toLocaleDateString(undefined, {
+        year: 'numeric', month: 'short', day: 'numeric'
+      });
+      const status = a.published
+        ? '<span style="color:var(--sage-dark);">Published</span>'
+        : '<span style="color:var(--terracotta);">Draft</span>';
+      return `
+        <div class="announcement-row ${a.published ? 'published' : 'draft'}">
+          <h3>${escapeHtml(a.title)}</h3>
+          <div class="meta">${status} · ${dateStr}</div>
+          <div class="body">${escapeHtml(a.body)}</div>
+          <div class="announcement-actions">
+            <button class="btn btn-secondary btn-small" data-action="edit" data-id="${a.id}">Edit</button>
+            ${a.published
+              ? `<button class="btn btn-secondary btn-small" data-action="unpublish" data-id="${a.id}">Unpublish</button>`
+              : `<button class="btn btn-primary btn-small" data-action="publish" data-id="${a.id}">Publish now</button>`
+            }
+            <button class="btn btn-danger btn-small" data-action="delete" data-id="${a.id}">Delete</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Wire up action buttons
+    listEl.querySelectorAll('button[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => handleAction(btn.dataset.action, btn.dataset.id, data));
+    });
+  }
+
+  async function handleAction(action, id, allAnnouncements) {
+    const item = allAnnouncements.find(a => a.id === id);
+    if (!item) return;
+
+    if (action === 'edit') {
+      idInput.value = item.id;
+      titleInput.value = item.title;
+      bodyInput.value = item.body;
+      publishCheckbox.checked = item.published;
+      editorTitle.textContent = 'Edit announcement';
+      cancelBtn.style.display = 'inline-block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (action === 'publish' || action === 'unpublish') {
+      const { error } = await supabase
+        .from('announcements')
+        .update({ published: action === 'publish' })
+        .eq('id', id);
+      if (error) {
+        showStatus('Error: ' + error.message, 'error');
+        return;
+      }
+      showStatus(action === 'publish' ? 'Published.' : 'Moved to draft.', 'success');
+      await loadAnnouncements();
+      return;
+    }
+
+    if (action === 'delete') {
+      if (!confirm('Delete this announcement? This cannot be undone.')) return;
+      const { error } = await supabase
+        .from('announcements')
+        .delete()
+        .eq('id', id);
+      if (error) {
+        showStatus('Error: ' + error.message, 'error');
+        return;
+      }
+      showStatus('Deleted.', 'success');
+      await loadAnnouncements();
+      return;
+    }
+  }
+
+  // Load submissions summary
+  async function loadSubmissionsSummary() {
+    const tbody = document.querySelector('#submissions-table tbody');
+
+    const [{ data: assignments }, { data: submissions }] = await Promise.all([
+      supabase.from('assignments').select('*').order('module_number'),
+      supabase.from('submissions').select('*')
+    ]);
+
+    if (!assignments || assignments.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4">No assignments yet.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = assignments.map(a => {
+      const subs = (submissions || []).filter(s => s.assignment_id === a.id);
+      const withFb = subs.filter(s => s.feedback).length;
+      const awaiting = subs.length - withFb;
+      const modNum = String(a.module_number).padStart(2, '0');
+      return `
+        <tr>
+          <td>Module ${modNum} — ${escapeHtml(a.title)}</td>
+          <td>${subs.length}</td>
+          <td>${withFb}</td>
+          <td>${awaiting > 0 ? `<strong>${awaiting}</strong>` : '0'}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  await loadAnnouncements();
+  await loadSubmissionsSummary();
+</script>
+
+</body>
+</html>
