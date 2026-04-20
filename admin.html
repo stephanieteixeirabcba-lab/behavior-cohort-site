@@ -6,162 +6,56 @@
   <title>Admin — Behavior Therapist Course</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
-    .admin-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--s-5);
-      flex-wrap: wrap;
-      gap: var(--s-3);
-    }
-    .announcement-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--s-4);
-    }
-    .announcement-row {
-      padding: var(--s-5);
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-    .announcement-row.draft {
-      border-left: 3px solid var(--terracotta);
-    }
-    .announcement-row.published {
-      border-left: 3px solid var(--sage);
-    }
-    .announcement-row h3 {
-      margin: 0 0 var(--s-2) 0;
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-    }
-    .announcement-row .meta {
-      font-size: 0.8rem;
-      color: var(--ink-muted);
-      margin-bottom: var(--s-3);
-    }
-    .announcement-row .body {
-      white-space: pre-wrap;
-      line-height: 1.65;
-      color: var(--ink-soft);
-      margin-bottom: var(--s-4);
-      font-size: 0.95rem;
-    }
-    .announcement-actions {
-      display: flex;
-      gap: var(--s-2);
-      flex-wrap: wrap;
-    }
-    .btn-small {
-      padding: 0.4rem 0.9rem;
-      font-size: 0.85rem;
-    }
-    .btn-danger {
-      background: transparent;
-      color: var(--terracotta);
-      border: 1px solid var(--terracotta);
-    }
-    .btn-danger:hover {
-      background: var(--terracotta);
-      color: var(--paper);
-    }
-    .editor-card {
-      padding: var(--s-6);
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      margin-bottom: var(--s-6);
-    }
-    .editor-card label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--ink-soft);
-      margin-bottom: var(--s-2);
-      margin-top: var(--s-4);
-    }
+    .admin-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--s-5); flex-wrap: wrap; gap: var(--s-3); }
+    .announcement-list { display: flex; flex-direction: column; gap: var(--s-4); }
+    .announcement-row { padding: var(--s-5); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+    .announcement-row.draft { border-left: 3px solid var(--terracotta); }
+    .announcement-row.published { border-left: 3px solid var(--sage); }
+    .announcement-row h3 { margin: 0 0 var(--s-2) 0; font-family: var(--font-display); font-size: 1.15rem; }
+    .announcement-row .meta { font-size: 0.8rem; color: var(--ink-muted); margin-bottom: var(--s-3); }
+    .announcement-row .body { white-space: pre-wrap; line-height: 1.65; color: var(--ink-soft); margin-bottom: var(--s-4); font-size: 0.95rem; }
+    .announcement-actions { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+    .btn-small { padding: 0.4rem 0.9rem; font-size: 0.85rem; }
+    .btn-danger { background: transparent; color: var(--terracotta); border: 1px solid var(--terracotta); }
+    .btn-danger:hover { background: var(--terracotta); color: var(--paper); }
+    .editor-card { padding: var(--s-6); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: var(--s-6); }
+    .editor-card label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); margin-bottom: var(--s-2); margin-top: var(--s-4); }
     .editor-card label:first-of-type { margin-top: 0; }
-    .editor-card input[type="text"],
-    .editor-card textarea {
-      width: 100%;
-      padding: 0.7rem 0.9rem;
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      color: var(--ink);
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-    .editor-card textarea {
-      min-height: 150px;
-      line-height: 1.6;
-      resize: vertical;
-    }
-    .editor-card input:focus,
-    .editor-card textarea:focus {
-      outline: none;
-      border-color: var(--sage);
-    }
-    .editor-card .checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: var(--s-2);
-      margin-top: var(--s-4);
-    }
-    .editor-card .checkbox-row input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-    }
-    .editor-card .button-row {
-      display: flex;
-      gap: var(--s-3);
-      margin-top: var(--s-5);
-      flex-wrap: wrap;
-    }
-    .admin-status {
-      margin-top: var(--s-3);
-      padding: var(--s-3) var(--s-4);
-      border-radius: var(--radius);
-      font-size: 0.9rem;
-      display: none;
-    }
-    .admin-status.error {
-      display: block;
-      background: var(--terracotta-tint);
-      color: #7a3a22;
-      border-left: 3px solid var(--terracotta);
-    }
-    .admin-status.success {
-      display: block;
-      background: var(--sage-tint);
-      color: var(--sage-dark);
-      border-left: 3px solid var(--sage);
-    }
-    .submissions-summary {
-      background: var(--paper-tint);
-      border-radius: var(--radius);
-      padding: var(--s-5);
-      margin-top: var(--s-5);
-    }
-    .submissions-summary table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-    }
-    .submissions-summary th,
-    .submissions-summary td {
-      text-align: left;
-      padding: var(--s-3) var(--s-2);
-      border-bottom: 1px solid var(--line);
-    }
-    .submissions-summary th {
-      font-weight: 500;
-      color: var(--ink-muted);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
+    .editor-card input[type="text"], .editor-card textarea { width: 100%; padding: 0.7rem 0.9rem; font-family: var(--font-body); font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+    .editor-card textarea { min-height: 150px; line-height: 1.6; resize: vertical; }
+    .editor-card input:focus, .editor-card textarea:focus { outline: none; border-color: var(--sage); }
+    .editor-card .checkbox-row { display: flex; align-items: center; gap: var(--s-2); margin-top: var(--s-4); }
+    .editor-card .checkbox-row input[type="checkbox"] { width: 18px; height: 18px; }
+    .editor-card .button-row { display: flex; gap: var(--s-3); margin-top: var(--s-5); flex-wrap: wrap; }
+    .admin-status { margin-top: var(--s-3); padding: var(--s-3) var(--s-4); border-radius: var(--radius); font-size: 0.9rem; display: none; }
+    .admin-status.error { display: block; background: var(--terracotta-tint); color: #7a3a22; border-left: 3px solid var(--terracotta); }
+    .admin-status.success { display: block; background: var(--sage-tint); color: var(--sage-dark); border-left: 3px solid var(--sage); }
+    .submissions-summary { background: var(--paper-tint); border-radius: var(--radius); padding: var(--s-5); margin-top: var(--s-5); }
+    .submissions-summary table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .submissions-summary th, .submissions-summary td { text-align: left; padding: var(--s-3) var(--s-2); border-bottom: 1px solid var(--line); }
+    .submissions-summary th { font-weight: 500; color: var(--ink-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* Feedback review styles */
+    .filter-bar { display: flex; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-5); }
+    .filter-bar select { padding: 0.5rem 0.8rem; font-family: var(--font-body); font-size: 0.9rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); color: var(--ink); }
+    .filter-bar select:focus { outline: none; border-color: var(--sage); }
+    .submission-card { padding: var(--s-5); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: var(--s-4); }
+    .submission-card.needs-feedback { border-left: 3px solid var(--terracotta); }
+    .submission-card.has-feedback { border-left: 3px solid var(--sage); }
+    .submission-card .sub-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-3); }
+    .submission-card .sub-header h3 { margin: 0; font-family: var(--font-display); font-size: 1.1rem; }
+    .submission-card .sub-meta { font-size: 0.8rem; color: var(--ink-muted); }
+    .submission-card .sub-text { white-space: pre-wrap; line-height: 1.65; color: var(--ink-soft); font-size: 0.95rem; padding: var(--s-4); background: var(--paper-tint); border-radius: var(--radius); margin: var(--s-3) 0; max-height: 300px; overflow-y: auto; }
+    .submission-card .existing-feedback { padding: var(--s-4); background: var(--sage-tint); border-radius: var(--radius); margin: var(--s-3) 0; }
+    .submission-card .existing-feedback .fb-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); margin-bottom: var(--s-2); }
+    .submission-card .existing-feedback .fb-text { white-space: pre-wrap; line-height: 1.6; font-size: 0.95rem; }
+    .submission-card textarea { width: 100%; min-height: 120px; padding: 0.75rem; font-family: var(--font-body); font-size: 0.95rem; line-height: 1.6; border: 1px solid var(--line); border-radius: var(--radius); resize: vertical; margin-top: var(--s-3); }
+    .submission-card textarea:focus { outline: none; border-color: var(--sage); }
+    .feedback-status { font-size: 0.85rem; margin-top: var(--s-2); }
+    .badge { display: inline-block; padding: 0.2rem 0.6rem; font-size: 0.75rem; font-weight: 500; border-radius: var(--radius); letter-spacing: 0.05em; text-transform: uppercase; }
+    .badge-awaiting { background: var(--terracotta-tint); color: var(--terracotta); }
+    .badge-done { background: var(--sage-tint); color: var(--sage-dark); }
+    .empty-feedback { color: var(--ink-muted); font-style: italic; padding: var(--s-5) 0; }
   </style>
 </head>
 <body>
@@ -187,43 +81,37 @@
   <section class="module-header">
     <div class="container-narrow">
       <span class="eyebrow">Admin</span>
-      <h1>Manage announcements</h1>
-      <p class="lead">Write, edit, and publish announcements for your cohort. Drafts are only visible to you.</p>
+      <h1>Course administration</h1>
+      <p class="lead">Manage announcements, review homework submissions, and leave feedback for your BTs.</p>
     </div>
   </section>
 
   <div class="container-narrow">
 
-    <!-- Editor -->
+    <!-- ANNOUNCEMENTS EDITOR -->
     <div class="module-section">
       <h2 id="editor-title">Write a new announcement</h2>
-
       <div class="editor-card">
         <form id="announcement-form">
           <input type="hidden" id="announcement-id" value="">
-
           <label for="announcement-title-input">Title</label>
           <input type="text" id="announcement-title-input" required placeholder="e.g., Meeting 1 — link and prep reminder">
-
           <label for="announcement-body-input">Body</label>
-          <textarea id="announcement-body-input" required placeholder="Write your announcement. Line breaks and simple formatting are preserved."></textarea>
-
+          <textarea id="announcement-body-input" required placeholder="Write your announcement. Line breaks are preserved."></textarea>
           <div class="checkbox-row">
             <input type="checkbox" id="announcement-publish">
             <label for="announcement-publish" style="margin: 0; font-size: 0.95rem; color: var(--ink);">Publish now (uncheck to save as draft)</label>
           </div>
-
           <div class="button-row">
             <button type="submit" class="btn btn-primary">Save</button>
             <button type="button" id="cancel-edit-btn" class="btn btn-secondary" style="display:none;">Cancel edit</button>
           </div>
-
           <div class="admin-status" id="admin-status"></div>
         </form>
       </div>
     </div>
 
-    <!-- List of existing -->
+    <!-- ANNOUNCEMENTS LIST -->
     <div class="module-section">
       <div class="admin-toolbar">
         <h2 style="margin: 0;">All announcements</h2>
@@ -233,24 +121,39 @@
       </div>
     </div>
 
-    <!-- Submissions overview -->
+    <!-- SUBMISSION OVERVIEW TABLE -->
     <div class="module-section">
       <h2>Submission overview</h2>
-      <p style="color: var(--ink-soft);">Quick view of homework submissions across all participants. Use Supabase's Table Editor for the full detail view and to leave feedback.</p>
       <div class="submissions-summary">
         <table id="submissions-table">
           <thead>
-            <tr>
-              <th>Module</th>
-              <th>Submissions</th>
-              <th>With feedback</th>
-              <th>Awaiting feedback</th>
-            </tr>
+            <tr><th>Module</th><th>Submissions</th><th>With feedback</th><th>Awaiting</th></tr>
           </thead>
           <tbody>
             <tr><td colspan="4" style="color:var(--ink-muted); font-style:italic;">Loading…</td></tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- FEEDBACK REVIEW — THE NEW SECTION -->
+    <div class="module-section">
+      <h2>Review &amp; leave feedback</h2>
+      <p style="color: var(--ink-soft);">Read each BT's submission and leave your written feedback. Once you save feedback, the BT sees it on their Progress page.</p>
+
+      <div class="filter-bar">
+        <select id="filter-module">
+          <option value="all">All modules</option>
+        </select>
+        <select id="filter-status">
+          <option value="all">All submissions</option>
+          <option value="awaiting" selected>Awaiting feedback</option>
+          <option value="done">Feedback given</option>
+        </select>
+      </div>
+
+      <div id="feedback-list">
+        <div class="empty-feedback">Loading submissions…</div>
       </div>
     </div>
 
@@ -262,7 +165,7 @@
   <div class="container">
     <div>
       <div class="brand">Behavior Therapist Course</div>
-      <p>International cohort · 2026</p>
+      <p>IBAO-approved content · International cohort · 2026</p>
     </div>
   </div>
 </footer>
@@ -271,21 +174,20 @@
 <script type="module">
   import { supabase, requireAuth, getProfile, updateNavAuth, escapeHtml } from './assets/js/auth.js';
 
-  // Gate: must be logged in
   const user = await requireAuth('');
   if (!user) throw new Error('not authed');
-
   updateNavAuth('');
 
-  // Additional gate: must be admin
   const profile = await getProfile();
   if (profile?.role !== 'admin') {
-    // Not admin — kick back to home
     alert('You need to be an admin to access this page.');
     window.location.href = 'index.html';
     throw new Error('not admin');
   }
 
+  // =====================================================================
+  // ANNOUNCEMENTS (same as before)
+  // =====================================================================
   const form = document.getElementById('announcement-form');
   const idInput = document.getElementById('announcement-id');
   const titleInput = document.getElementById('announcement-title-input');
@@ -305,176 +207,274 @@
     cancelBtn.style.display = 'none';
   }
 
-  function showStatus(msg, type) {
-    statusEl.className = 'admin-status ' + type;
-    statusEl.textContent = msg;
-    if (type === 'success') {
-      setTimeout(() => { statusEl.className = 'admin-status'; }, 3000);
-    }
+  function showStatus(el, msg, type) {
+    el.className = 'admin-status ' + type;
+    el.textContent = msg;
+    if (type === 'success') setTimeout(() => { el.className = 'admin-status'; }, 3000);
   }
 
-  // Save (insert or update)
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const id = idInput.value;
-    const payload = {
-      title: titleInput.value.trim(),
-      body: bodyInput.value.trim(),
-      published: publishCheckbox.checked
-    };
-
+    const payload = { title: titleInput.value.trim(), body: bodyInput.value.trim(), published: publishCheckbox.checked };
     let error;
     if (id) {
-      // update
-      ({ error } = await supabase
-        .from('announcements')
-        .update(payload)
-        .eq('id', id));
+      ({ error } = await supabase.from('announcements').update(payload).eq('id', id));
     } else {
-      // insert
       payload.created_by = user.id;
-      ({ error } = await supabase
-        .from('announcements')
-        .insert(payload));
+      ({ error } = await supabase.from('announcements').insert(payload));
     }
-
-    if (error) {
-      showStatus('Error: ' + error.message, 'error');
-      return;
-    }
-    showStatus(id ? 'Announcement updated.' : 'Announcement saved.', 'success');
+    if (error) { showStatus(statusEl, 'Error: ' + error.message, 'error'); return; }
+    showStatus(statusEl, id ? 'Updated.' : 'Saved.', 'success');
     resetForm();
     await loadAnnouncements();
   });
 
-  cancelBtn.addEventListener('click', () => {
-    resetForm();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  cancelBtn.addEventListener('click', () => { resetForm(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
   async function loadAnnouncements() {
-    const { data, error } = await supabase
-      .from('announcements')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      listEl.innerHTML = `<div style="color:var(--terracotta);">Error loading: ${escapeHtml(error.message)}</div>`;
-      return;
-    }
-
-    if (!data || data.length === 0) {
-      listEl.innerHTML = '<div style="color:var(--ink-muted); font-style:italic;">No announcements yet. Write one above.</div>';
-      return;
-    }
-
+    const { data, error } = await supabase.from('announcements').select('*').order('created_at', { ascending: false });
+    if (error) { listEl.innerHTML = `<div style="color:var(--terracotta);">Error: ${escapeHtml(error.message)}</div>`; return; }
+    if (!data || data.length === 0) { listEl.innerHTML = '<div style="color:var(--ink-muted); font-style:italic;">No announcements yet.</div>'; return; }
     listEl.innerHTML = data.map(a => {
-      const dateStr = new Date(a.created_at).toLocaleDateString(undefined, {
-        year: 'numeric', month: 'short', day: 'numeric'
-      });
-      const status = a.published
-        ? '<span style="color:var(--sage-dark);">Published</span>'
-        : '<span style="color:var(--terracotta);">Draft</span>';
-      return `
-        <div class="announcement-row ${a.published ? 'published' : 'draft'}">
-          <h3>${escapeHtml(a.title)}</h3>
-          <div class="meta">${status} · ${dateStr}</div>
-          <div class="body">${escapeHtml(a.body)}</div>
-          <div class="announcement-actions">
-            <button class="btn btn-secondary btn-small" data-action="edit" data-id="${a.id}">Edit</button>
-            ${a.published
-              ? `<button class="btn btn-secondary btn-small" data-action="unpublish" data-id="${a.id}">Unpublish</button>`
-              : `<button class="btn btn-primary btn-small" data-action="publish" data-id="${a.id}">Publish now</button>`
-            }
-            <button class="btn btn-danger btn-small" data-action="delete" data-id="${a.id}">Delete</button>
+      const dateStr = new Date(a.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+      const status = a.published ? '<span style="color:var(--sage-dark);">Published</span>' : '<span style="color:var(--terracotta);">Draft</span>';
+      return `<div class="announcement-row ${a.published ? 'published' : 'draft'}">
+        <h3>${escapeHtml(a.title)}</h3>
+        <div class="meta">${status} · ${dateStr}</div>
+        <div class="body">${escapeHtml(a.body)}</div>
+        <div class="announcement-actions">
+          <button class="btn btn-secondary btn-small" data-action="edit" data-id="${a.id}">Edit</button>
+          ${a.published ? `<button class="btn btn-secondary btn-small" data-action="unpublish" data-id="${a.id}">Unpublish</button>` : `<button class="btn btn-primary btn-small" data-action="publish" data-id="${a.id}">Publish</button>`}
+          <button class="btn btn-danger btn-small" data-action="delete" data-id="${a.id}">Delete</button>
+        </div></div>`;
+    }).join('');
+    listEl.querySelectorAll('button[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => handleAnnouncementAction(btn.dataset.action, btn.dataset.id, data));
+    });
+  }
+
+  async function handleAnnouncementAction(action, id, all) {
+    const item = all.find(a => a.id === id);
+    if (!item) return;
+    if (action === 'edit') {
+      idInput.value = item.id; titleInput.value = item.title; bodyInput.value = item.body;
+      publishCheckbox.checked = item.published; editorTitle.textContent = 'Edit announcement';
+      cancelBtn.style.display = 'inline-block'; window.scrollTo({ top: 0, behavior: 'smooth' }); return;
+    }
+    if (action === 'publish' || action === 'unpublish') {
+      const { error } = await supabase.from('announcements').update({ published: action === 'publish' }).eq('id', id);
+      if (error) { showStatus(statusEl, 'Error: ' + error.message, 'error'); return; }
+      showStatus(statusEl, action === 'publish' ? 'Published.' : 'Moved to draft.', 'success');
+      await loadAnnouncements(); return;
+    }
+    if (action === 'delete') {
+      if (!confirm('Delete this announcement?')) return;
+      const { error } = await supabase.from('announcements').delete().eq('id', id);
+      if (error) { showStatus(statusEl, 'Error: ' + error.message, 'error'); return; }
+      showStatus(statusEl, 'Deleted.', 'success'); await loadAnnouncements();
+    }
+  }
+
+  // =====================================================================
+  // SUBMISSIONS OVERVIEW TABLE
+  // =====================================================================
+  let allAssignments = [];
+  let allSubmissions = [];
+  let allProfiles = [];
+
+  async function loadAllData() {
+    const [a, s, p] = await Promise.all([
+      supabase.from('assignments').select('*').order('module_number'),
+      supabase.from('submissions').select('*'),
+      supabase.from('profiles').select('*')
+    ]);
+    allAssignments = a.data || [];
+    allSubmissions = s.data || [];
+    allProfiles = p.data || [];
+  }
+
+  function profileName(userId) {
+    const p = allProfiles.find(pr => pr.id === userId);
+    return p?.full_name || p?.email || 'Unknown';
+  }
+
+  async function loadSubmissionsSummary() {
+    const tbody = document.querySelector('#submissions-table tbody');
+    if (allAssignments.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No assignments.</td></tr>'; return; }
+    tbody.innerHTML = allAssignments.map(a => {
+      const subs = allSubmissions.filter(s => s.assignment_id === a.id);
+      const withFb = subs.filter(s => s.feedback).length;
+      const awaiting = subs.length - withFb;
+      return `<tr>
+        <td>Module ${String(a.module_number).padStart(2,'0')} — ${escapeHtml(a.title)}</td>
+        <td>${subs.length}</td><td>${withFb}</td>
+        <td>${awaiting > 0 ? `<strong style="color:var(--terracotta);">${awaiting}</strong>` : '0'}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // =====================================================================
+  // FEEDBACK REVIEW — NEW
+  // =====================================================================
+  const filterModule = document.getElementById('filter-module');
+  const filterStatus = document.getElementById('filter-status');
+  const feedbackListEl = document.getElementById('feedback-list');
+
+  function populateModuleFilter() {
+    allAssignments.forEach(a => {
+      const opt = document.createElement('option');
+      opt.value = a.id;
+      opt.textContent = `Module ${String(a.module_number).padStart(2,'0')} — ${a.title}`;
+      filterModule.appendChild(opt);
+    });
+  }
+
+  function renderFeedbackList() {
+    const modFilter = filterModule.value;
+    const statusFilter = filterStatus.value;
+
+    let filtered = [...allSubmissions];
+
+    if (modFilter !== 'all') {
+      filtered = filtered.filter(s => s.assignment_id === modFilter);
+    }
+    if (statusFilter === 'awaiting') {
+      filtered = filtered.filter(s => !s.feedback);
+    } else if (statusFilter === 'done') {
+      filtered = filtered.filter(s => s.feedback);
+    }
+
+    // Sort: awaiting feedback first, then by date
+    filtered.sort((a, b) => {
+      if (!a.feedback && b.feedback) return -1;
+      if (a.feedback && !b.feedback) return 1;
+      return new Date(b.submitted_at) - new Date(a.submitted_at);
+    });
+
+    if (filtered.length === 0) {
+      feedbackListEl.innerHTML = '<div class="empty-feedback">No submissions match these filters.</div>';
+      return;
+    }
+
+    feedbackListEl.innerHTML = filtered.map(s => {
+      const assignment = allAssignments.find(a => a.id === s.assignment_id);
+      const modNum = assignment ? String(assignment.module_number).padStart(2, '0') : '??';
+      const modTitle = assignment ? assignment.title : s.assignment_id;
+      const name = profileName(s.user_id);
+      const dateStr = new Date(s.submitted_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+      const hasFeedback = !!s.feedback;
+      const badge = hasFeedback
+        ? '<span class="badge badge-done">Feedback given</span>'
+        : '<span class="badge badge-awaiting">Awaiting feedback</span>';
+
+      let feedbackSection = '';
+      if (hasFeedback) {
+        feedbackSection = `
+          <div class="existing-feedback">
+            <div class="fb-label">Your feedback (sent ${s.feedback_at ? new Date(s.feedback_at).toLocaleDateString() : ''})</div>
+            <div class="fb-text">${escapeHtml(s.feedback)}</div>
           </div>
+          <button class="btn btn-secondary btn-small" data-action="edit-feedback" data-sub-id="${s.id}">Edit feedback</button>
+        `;
+      } else {
+        feedbackSection = `
+          <textarea id="fb-${s.id}" placeholder="Write your feedback here…"></textarea>
+          <div style="margin-top: var(--s-3);">
+            <button class="btn btn-primary btn-small" data-action="save-feedback" data-sub-id="${s.id}">Save feedback</button>
+            <span class="feedback-status" id="fb-status-${s.id}"></span>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="submission-card ${hasFeedback ? 'has-feedback' : 'needs-feedback'}">
+          <div class="sub-header">
+            <div>
+              <h3>${escapeHtml(name)}</h3>
+              <div class="sub-meta">Module ${modNum} — ${escapeHtml(modTitle)} · Submitted ${dateStr}</div>
+            </div>
+            ${badge}
+          </div>
+          <div class="sub-text">${escapeHtml(s.submission_text)}</div>
+          ${feedbackSection}
         </div>
       `;
     }).join('');
 
-    // Wire up action buttons
-    listEl.querySelectorAll('button[data-action]').forEach(btn => {
-      btn.addEventListener('click', () => handleAction(btn.dataset.action, btn.dataset.id, data));
+    // Wire up feedback buttons
+    feedbackListEl.querySelectorAll('button[data-action="save-feedback"]').forEach(btn => {
+      btn.addEventListener('click', () => saveFeedback(btn.dataset.subId));
+    });
+    feedbackListEl.querySelectorAll('button[data-action="edit-feedback"]').forEach(btn => {
+      btn.addEventListener('click', () => editFeedback(btn.dataset.subId));
     });
   }
 
-  async function handleAction(action, id, allAnnouncements) {
-    const item = allAnnouncements.find(a => a.id === id);
-    if (!item) return;
+  async function saveFeedback(subId) {
+    const textarea = document.getElementById(`fb-${subId}`);
+    const statusSpan = document.getElementById(`fb-status-${subId}`);
+    const text = textarea?.value?.trim();
 
-    if (action === 'edit') {
-      idInput.value = item.id;
-      titleInput.value = item.title;
-      bodyInput.value = item.body;
-      publishCheckbox.checked = item.published;
-      editorTitle.textContent = 'Edit announcement';
-      cancelBtn.style.display = 'inline-block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!text) {
+      if (statusSpan) { statusSpan.textContent = 'Please write something first.'; statusSpan.style.color = 'var(--terracotta)'; }
       return;
     }
 
-    if (action === 'publish' || action === 'unpublish') {
-      const { error } = await supabase
-        .from('announcements')
-        .update({ published: action === 'publish' })
-        .eq('id', id);
-      if (error) {
-        showStatus('Error: ' + error.message, 'error');
-        return;
-      }
-      showStatus(action === 'publish' ? 'Published.' : 'Moved to draft.', 'success');
-      await loadAnnouncements();
+    const { error } = await supabase
+      .from('submissions')
+      .update({ feedback: text, feedback_at: new Date().toISOString() })
+      .eq('id', subId);
+
+    if (error) {
+      if (statusSpan) { statusSpan.textContent = 'Error: ' + error.message; statusSpan.style.color = 'var(--terracotta)'; }
       return;
     }
 
-    if (action === 'delete') {
-      if (!confirm('Delete this announcement? This cannot be undone.')) return;
-      const { error } = await supabase
-        .from('announcements')
-        .delete()
-        .eq('id', id);
-      if (error) {
-        showStatus('Error: ' + error.message, 'error');
-        return;
-      }
-      showStatus('Deleted.', 'success');
-      await loadAnnouncements();
-      return;
-    }
+    // Refresh data and re-render
+    await loadAllData();
+    loadSubmissionsSummary();
+    renderFeedbackList();
   }
 
-  // Load submissions summary
-  async function loadSubmissionsSummary() {
-    const tbody = document.querySelector('#submissions-table tbody');
+  function editFeedback(subId) {
+    const sub = allSubmissions.find(s => s.id === subId);
+    if (!sub) return;
 
-    const [{ data: assignments }, { data: submissions }] = await Promise.all([
-      supabase.from('assignments').select('*').order('module_number'),
-      supabase.from('submissions').select('*')
-    ]);
+    const card = feedbackListEl.querySelector(`button[data-sub-id="${subId}"][data-action="edit-feedback"]`).closest('.submission-card');
+    const existingFb = card.querySelector('.existing-feedback');
+    const editBtn = card.querySelector('button[data-action="edit-feedback"]');
 
-    if (!assignments || assignments.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="4">No assignments yet.</td></tr>';
-      return;
-    }
+    // Replace existing feedback display with editable textarea
+    existingFb.innerHTML = `
+      <textarea id="fb-${subId}" style="width:100%; min-height:120px; padding:0.75rem; font-family:var(--font-body); font-size:0.95rem; line-height:1.6; border:1px solid var(--line); border-radius:var(--radius); resize:vertical;">${escapeHtml(sub.feedback)}</textarea>
+      <div style="margin-top: var(--s-3);">
+        <button class="btn btn-primary btn-small" id="save-edit-${subId}">Save changes</button>
+        <button class="btn btn-secondary btn-small" id="cancel-edit-${subId}">Cancel</button>
+        <span class="feedback-status" id="fb-status-${subId}"></span>
+      </div>
+    `;
+    editBtn.style.display = 'none';
 
-    tbody.innerHTML = assignments.map(a => {
-      const subs = (submissions || []).filter(s => s.assignment_id === a.id);
-      const withFb = subs.filter(s => s.feedback).length;
-      const awaiting = subs.length - withFb;
-      const modNum = String(a.module_number).padStart(2, '0');
-      return `
-        <tr>
-          <td>Module ${modNum} — ${escapeHtml(a.title)}</td>
-          <td>${subs.length}</td>
-          <td>${withFb}</td>
-          <td>${awaiting > 0 ? `<strong>${awaiting}</strong>` : '0'}</td>
-        </tr>
-      `;
-    }).join('');
+    document.getElementById(`save-edit-${subId}`).addEventListener('click', () => saveFeedback(subId));
+    document.getElementById(`cancel-edit-${subId}`).addEventListener('click', async () => {
+      await loadAllData();
+      renderFeedbackList();
+    });
   }
 
+  // Filter change handlers
+  filterModule.addEventListener('change', renderFeedbackList);
+  filterStatus.addEventListener('change', renderFeedbackList);
+
+  // =====================================================================
+  // INITIALIZE
+  // =====================================================================
   await loadAnnouncements();
-  await loadSubmissionsSummary();
+  await loadAllData();
+  populateModuleFilter();
+  loadSubmissionsSummary();
+  renderFeedbackList();
 </script>
 
 </body>
