@@ -294,14 +294,10 @@
 
   const user = await getUser();
 
-  if (!user) {
-    // Not logged in — show public view only (default)
-    return;
-  }
-
-  // Logged in — show dashboard
-  document.getElementById('public-view').style.display = 'none';
-  document.getElementById('dashboard-view').style.display = 'block';
+  if (user) {
+    // Logged in — show dashboard
+    document.getElementById('public-view').style.display = 'none';
+    document.getElementById('dashboard-view').style.display = 'block';
 
   const profile = await getProfile();
   const firstName = profile?.full_name?.split(' ')[0] || 'there';
@@ -381,6 +377,8 @@
       `;
     }).join('');
   }
+
+  } // end if(user)
 </script>
 
 </body>
