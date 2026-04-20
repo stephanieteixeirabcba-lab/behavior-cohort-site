@@ -4,93 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Behavior Therapist Course 2026</title>
-  <meta name="description" content="A practice-based cohort for Behaviour Therapists (BTs) implementing ABA under supervision — grounded in neurodiversity-affirming, trauma-informed, assent-based care.">
+  <meta name="description" content="IBAO-approved 40-hour Behaviour Therapist training — neurodiversity-affirming, trauma-informed, assent-based ABA practice. Prepares you to sit for the IBT exam.">
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
-    /* Dashboard-specific styles */
-    .dashboard-greeting {
-      padding: var(--s-7) 0 var(--s-5);
-    }
-    .dashboard-section {
-      padding: var(--s-5) 0 var(--s-6);
-      border-top: 1px solid var(--line);
-    }
-    .announcement {
-      padding: var(--s-5);
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      margin-bottom: var(--s-4);
-    }
-    .announcement h3 {
-      margin: 0 0 var(--s-2) 0;
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-    }
-    .announcement .meta {
-      font-size: 0.8rem;
-      color: var(--ink-muted);
-      margin-bottom: var(--s-3);
-    }
-    .announcement .body {
-      white-space: pre-wrap;
-      line-height: 1.7;
-      color: var(--ink-soft);
-    }
-    .progress-summary {
-      display: flex;
-      gap: var(--s-6);
-      padding: var(--s-5);
-      background: var(--sage-tint);
-      border-radius: var(--radius);
-      flex-wrap: wrap;
-      margin-top: var(--s-3);
-    }
-    .progress-stat {
-      flex: 1;
-      min-width: 150px;
-    }
-    .progress-stat .value {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 500;
-      color: var(--sage-dark);
-      line-height: 1;
-    }
-    .progress-stat .label {
-      font-size: 0.85rem;
-      color: var(--ink-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: var(--s-2);
-    }
-    .next-action {
-      padding: var(--s-5);
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: var(--s-4);
-      margin-top: var(--s-3);
-    }
-    .next-action .info h4 {
-      margin: 0 0 var(--s-1) 0;
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-    }
-    .next-action .info p {
-      margin: 0;
-      color: var(--ink-muted);
-      font-size: 0.9rem;
-    }
-    .empty-state {
-      color: var(--ink-muted);
-      font-style: italic;
-      padding: var(--s-4) 0;
-    }
+    .dashboard-greeting { padding: var(--s-7) 0 var(--s-5); }
+    .dashboard-section { padding: var(--s-5) 0 var(--s-6); border-top: 1px solid var(--line); }
+    .announcement { padding: var(--s-5); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: var(--s-4); }
+    .announcement h3 { margin: 0 0 var(--s-2) 0; font-family: var(--font-display); font-size: 1.2rem; }
+    .announcement .meta { font-size: 0.8rem; color: var(--ink-muted); margin-bottom: var(--s-3); }
+    .announcement .body { white-space: pre-wrap; line-height: 1.7; color: var(--ink-soft); }
+    .progress-summary { display: flex; gap: var(--s-6); padding: var(--s-5); background: var(--sage-tint); border-radius: var(--radius); flex-wrap: wrap; margin-top: var(--s-3); }
+    .progress-stat { flex: 1; min-width: 150px; }
+    .progress-stat .value { font-family: var(--font-display); font-size: 2rem; font-weight: 500; color: var(--sage-dark); line-height: 1; }
+    .progress-stat .label { font-size: 0.85rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: var(--s-2); }
+    .next-action { padding: var(--s-5); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--s-4); margin-top: var(--s-3); }
+    .next-action .info h4 { margin: 0 0 var(--s-1) 0; font-family: var(--font-display); font-size: 1.1rem; }
+    .next-action .info p { margin: 0; color: var(--ink-muted); font-size: 0.9rem; }
+    .empty-state { color: var(--ink-muted); font-style: italic; padding: var(--s-4) 0; }
+    .credential-badge { display: inline-block; padding: 0.5rem 1rem; background: var(--sage-tint); border: 1px solid var(--sage); border-radius: var(--radius); font-size: 0.85rem; font-weight: 500; color: var(--sage-dark); margin-top: var(--s-4); letter-spacing: 0.02em; }
   </style>
 </head>
 <body>
@@ -112,15 +43,14 @@
 
 <main>
 
-  <!-- ================================================= -->
-  <!-- PUBLIC VIEW (shown when NOT logged in)            -->
-  <!-- ================================================= -->
+  <!-- PUBLIC VIEW -->
   <div id="public-view">
     <section class="hero">
       <div class="container">
-        <span class="eyebrow">International cohort · May – October 2026</span>
-        <h1>Practicing ABA with <em>dignity</em>, assent, and care — for the people we serve.</h1>
-        <p class="lead">Forty hours of training for Behaviour Therapists (BTs) implementing ABA under the supervision of a Behavior Analyst — grounded in neurodiversity-affirming, trauma-informed, and assent-based practice.</p>
+        <span class="eyebrow">IBAO-Approved Content · International cohort · May – October 2026</span>
+        <h1>A neurodiversity-affirming <em>Behaviour Therapist</em> training grounded in dignity, assent, and care.</h1>
+        <p class="lead">Forty hours of training in applied behavior analysis — designed to prepare you for the IBT exam, deepen your current practice, or start your journey as a Behaviour Therapist.</p>
+        <div class="credential-badge">Approved content provider — International Behavior Analysis Organization (IBAO)</div>
 
         <div class="btn-group">
           <a href="syllabus.html" class="btn btn-primary">View the syllabus</a>
@@ -141,8 +71,8 @@
             <div class="value">≈ 5 months</div>
           </div>
           <div>
-            <div class="label">For</div>
-            <div class="value">Behaviour Therapists</div>
+            <div class="label">Hours</div>
+            <div class="value">40 hours total</div>
           </div>
         </div>
       </div>
@@ -150,10 +80,28 @@
 
     <section>
       <div class="container-narrow">
-        <span class="eyebrow">What this cohort is</span>
-        <h2>Practice deepening, not credentialing.</h2>
-        <p>This is a professional-development cohort for Behaviour Therapists (BTs) who are already implementing ABA under the supervision of a credentialed Behavior Analyst (BA) — whether that's a BCBA, IBA, QBA, or other regionally recognized credential. It is not a credentialing pathway and does not replace your jurisdiction's required training, competency assessment, or ongoing supervision. What it does is deepen your practice in the areas the field has moved on: neurodiversity-affirming care, trauma-informed practice, ongoing assent, and respectful work with autistic clients and their families.</p>
-        <p>We read what autistic self-advocates and autistic-led researchers have written about ABA. We take those critiques seriously. And we learn to do better.</p>
+        <span class="eyebrow">Who this course is for</span>
+        <h2>Three paths, one course.</h2>
+        <p>This course serves three groups of learners. All are welcome regardless of prior certification status.</p>
+      </div>
+      <div class="container">
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-number">Path 1</div>
+            <h3>Preparing for the IBT exam</h3>
+            <p>This course provides the 40-hour training requirement for the International Behavior Therapist (IBT) certification through the <a href="https://theibao.com/" target="_blank" rel="noopener">IBAO</a>. After completing the course, you may sit for the IBT exam. You will still need to complete 300 hours of supervised practice and other requirements outlined by the IBAO.</p>
+          </div>
+          <div class="card">
+            <div class="card-number">Path 2</div>
+            <h3>Deepening your current practice</h3>
+            <p>Already working as a Behaviour Therapist (BT) or in a related role? This course strengthens your skills in neurodiversity-affirming, trauma-informed, and assent-based practice — regardless of whether you plan to sit for any exam.</p>
+          </div>
+          <div class="card">
+            <div class="card-number">Path 3</div>
+            <h3>Starting your journey</h3>
+            <p>Interested in becoming a Behaviour Therapist but not sure about certification yet? This course gives you a rigorous foundation in applied behavior analysis from a neurodiversity-affirming lens, so you can decide your next steps from a place of knowledge.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -176,7 +124,7 @@
           <div class="card">
             <div class="card-number">03</div>
             <h3>Applied practice</h3>
-            <p>Short written reflections and observational exercises grounded in your day-to-day work with clients.</p>
+            <p>Short written reflections and observational exercises grounded in your day-to-day work or learning.</p>
           </div>
           <div class="card">
             <div class="card-number">04</div>
@@ -191,7 +139,7 @@
       <div class="container-narrow">
         <span class="eyebrow">Our commitments</span>
         <h2>Six non-negotiables.</h2>
-        <p>Everything in this cohort rests on commitments drawn from peer-reviewed literature and autistic-led scholarship:</p>
+        <p>Everything in this course rests on commitments drawn from peer-reviewed literature and autistic-led scholarship:</p>
         <ol style="padding-left: 1.25rem; line-height: 1.9; margin-top: 1rem;">
           <li>Autistic and neurodivergent clients are the experts on their own experience.</li>
           <li>Stimming, special interests, and neurodivergent communication are not targets for reduction.</li>
@@ -206,7 +154,20 @@
 
     <section>
       <div class="container-narrow">
-        <div class="callout warn">
+        <span class="eyebrow">Your instructor</span>
+        <h2>Stephanie Teixeira, BCBA</h2>
+        <p>Stephanie is a Board Certified Behavior Analyst and an approved content provider for the <a href="https://theibao.com/" target="_blank" rel="noopener">International Behavior Analysis Organization (IBAO)</a>. She brings a neurodiversity-affirming, trauma-informed approach to behavior analysis and is committed to training the next generation of Behaviour Therapists to practice with dignity, assent, and care.</p>
+        <p><a href="https://www.stephanieteixeira.com" target="_blank" rel="noopener">Learn more at stephanieteixeira.com →</a></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="callout">
+          <h4>About the IBAO credential</h4>
+          <p>This course is provided by an approved content provider of the <a href="https://theibao.com/" target="_blank" rel="noopener">International Behavior Analysis Organization (IBAO)</a>. The 40 hours of training count toward the educational requirement for the International Behavior Therapist (IBT) certification. The IBT is a globally recognized credential for front-line behaviour therapists delivering ABA services under the supervision of a qualified Behavior Analyst (IBA, QBA, BCBA, or equivalent).</p>
+        </div>
+        <div class="callout warn" style="margin-top: var(--s-4);">
           <h4>A note on confidentiality</h4>
           <p>This site and our discussion space are not secure platforms. Never share identifying client information — no names, dates of birth, exact locations, or other identifying details. De-identify all case material thoroughly before posting or submitting. If in doubt, consult your supervising Behavior Analyst.</p>
         </div>
@@ -214,15 +175,13 @@
     </section>
   </div>
 
-  <!-- ================================================= -->
-  <!-- DASHBOARD VIEW (shown when LOGGED IN)             -->
-  <!-- ================================================= -->
+  <!-- DASHBOARD VIEW -->
   <div id="dashboard-view" style="display: none;">
     <section class="dashboard-greeting">
       <div class="container-narrow">
         <span class="eyebrow">Your dashboard</span>
         <h1 id="greeting-name">Welcome</h1>
-        <p class="lead" id="greeting-subtitle">Here's what's happening in your cohort.</p>
+        <p class="lead" id="greeting-subtitle">Here's what's happening in your course.</p>
         <div id="admin-link-row" style="display:none; margin-top: var(--s-3);">
           <a href="admin.html" class="btn btn-secondary">Admin → manage announcements</a>
         </div>
@@ -278,10 +237,11 @@
   <div class="container">
     <div>
       <div class="brand">Behavior Therapist Course</div>
-      <p>International cohort · 2026</p>
+      <p>IBAO-approved content · International cohort · 2026</p>
     </div>
     <div>
       <p>Questions? Email <a href="mailto:stephanieteixeira.bcba@gmail.com">stephanieteixeira.bcba@gmail.com</a></p>
+      <p style="margin-top: var(--s-2);"><a href="https://www.stephanieteixeira.com" target="_blank" rel="noopener">stephanieteixeira.com</a></p>
     </div>
   </div>
 </footer>
@@ -295,88 +255,80 @@
   const user = await getUser();
 
   if (user) {
-    // Logged in — show dashboard
     document.getElementById('public-view').style.display = 'none';
     document.getElementById('dashboard-view').style.display = 'block';
 
-  const profile = await getProfile();
-  const firstName = profile?.full_name?.split(' ')[0] || 'there';
-  document.getElementById('greeting-name').textContent = `Welcome back, ${firstName}.`;
+    const profile = await getProfile();
+    const firstName = profile?.full_name?.split(' ')[0] || 'there';
+    document.getElementById('greeting-name').textContent = `Welcome back, ${firstName}.`;
 
-  // Show admin link if admin
-  if (profile?.role === 'admin') {
-    document.getElementById('admin-link-row').style.display = 'block';
-  }
+    if (profile?.role === 'admin') {
+      document.getElementById('admin-link-row').style.display = 'block';
+    }
 
-  // Load all data in parallel
-  const [
-    { data: assignments },
-    { data: submissions },
-    { data: announcements }
-  ] = await Promise.all([
-    supabase.from('assignments').select('*').order('module_number'),
-    supabase.from('submissions').select('*').eq('user_id', user.id),
-    supabase.from('announcements').select('*').order('created_at', { ascending: false }).limit(5)
-  ]);
+    const [
+      { data: assignments },
+      { data: submissions },
+      { data: announcements }
+    ] = await Promise.all([
+      supabase.from('assignments').select('*').order('module_number'),
+      supabase.from('submissions').select('*').eq('user_id', user.id),
+      supabase.from('announcements').select('*').order('created_at', { ascending: false }).limit(5)
+    ]);
 
-  // --- Progress summary ---
-  const submitted = submissions?.length || 0;
-  const withFeedback = (submissions || []).filter(s => s.feedback).length;
-  const openModules = (assignments || []).filter(a => a.open).length;
+    const submitted = submissions?.length || 0;
+    const withFeedback = (submissions || []).filter(s => s.feedback).length;
+    const openModules = (assignments || []).filter(a => a.open).length;
 
-  document.getElementById('submitted-count').textContent = `${submitted}/${(assignments || []).length}`;
-  document.getElementById('feedback-count').textContent = withFeedback;
-  document.getElementById('open-count').textContent = openModules;
+    document.getElementById('submitted-count').textContent = `${submitted}/${(assignments || []).length}`;
+    document.getElementById('feedback-count').textContent = withFeedback;
+    document.getElementById('open-count').textContent = openModules;
 
-  // --- Next action ---
-  // Find the first open assignment the user hasn't submitted yet
-  const submittedIds = new Set((submissions || []).map(s => s.assignment_id));
-  const nextAssignment = (assignments || []).find(a => a.open && !submittedIds.has(a.id));
-  const nextActionEl = document.getElementById('next-action-container');
+    const submittedIds = new Set((submissions || []).map(s => s.assignment_id));
+    const nextAssignment = (assignments || []).find(a => a.open && !submittedIds.has(a.id));
+    const nextActionEl = document.getElementById('next-action-container');
 
-  if (nextAssignment) {
-    const moduleNum = String(nextAssignment.module_number).padStart(2, '0');
-    nextActionEl.innerHTML = `
-      <div class="next-action">
-        <div class="info">
-          <h4>Module ${moduleNum} — ${escapeHtml(nextAssignment.title)}</h4>
-          <p>Due ${escapeHtml(nextAssignment.due_description || '')}</p>
-        </div>
-        <a href="modules/module-${moduleNum}.html" class="btn btn-primary">Go to module →</a>
-      </div>
-    `;
-  } else if (submitted === (assignments || []).length && submitted > 0) {
-    nextActionEl.innerHTML = '<div class="empty-state">You\'ve submitted everything currently open. Nicely done.</div>';
-  } else {
-    nextActionEl.innerHTML = '<div class="empty-state">No modules open yet. You\'ll see your next assignment here once your instructor opens one.</div>';
-  }
-
-  // --- Announcements ---
-  const announcementsEl = document.getElementById('announcements-container');
-  // For admins, show all announcements (incl. drafts); for BTs, only published
-  const visibleAnnouncements = (announcements || []).filter(a =>
-    a.published || profile?.role === 'admin'
-  );
-
-  if (visibleAnnouncements.length === 0) {
-    announcementsEl.innerHTML = '<div class="empty-state">No announcements yet.</div>';
-  } else {
-    announcementsEl.innerHTML = visibleAnnouncements.map(a => {
-      const dateStr = new Date(a.created_at).toLocaleDateString(undefined, {
-        year: 'numeric', month: 'short', day: 'numeric'
-      });
-      const draftBadge = !a.published
-        ? ' <span style="color:var(--terracotta); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; margin-left:0.5rem;">Draft</span>'
-        : '';
-      return `
-        <div class="announcement">
-          <h3>${escapeHtml(a.title)}${draftBadge}</h3>
-          <div class="meta">${dateStr}</div>
-          <div class="body">${escapeHtml(a.body)}</div>
+    if (nextAssignment) {
+      const moduleNum = String(nextAssignment.module_number).padStart(2, '0');
+      nextActionEl.innerHTML = `
+        <div class="next-action">
+          <div class="info">
+            <h4>Module ${moduleNum} — ${escapeHtml(nextAssignment.title)}</h4>
+            <p>Due ${escapeHtml(nextAssignment.due_description || '')}</p>
+          </div>
+          <a href="modules/module-${moduleNum}.html" class="btn btn-primary">Go to module →</a>
         </div>
       `;
-    }).join('');
-  }
+    } else if (submitted === (assignments || []).length && submitted > 0) {
+      nextActionEl.innerHTML = '<div class="empty-state">You\'ve submitted everything currently open. Nicely done.</div>';
+    } else {
+      nextActionEl.innerHTML = '<div class="empty-state">No modules open yet. You\'ll see your next assignment here once your instructor opens one.</div>';
+    }
+
+    const announcementsEl = document.getElementById('announcements-container');
+    const visibleAnnouncements = (announcements || []).filter(a =>
+      a.published || profile?.role === 'admin'
+    );
+
+    if (visibleAnnouncements.length === 0) {
+      announcementsEl.innerHTML = '<div class="empty-state">No announcements yet.</div>';
+    } else {
+      announcementsEl.innerHTML = visibleAnnouncements.map(a => {
+        const dateStr = new Date(a.created_at).toLocaleDateString(undefined, {
+          year: 'numeric', month: 'short', day: 'numeric'
+        });
+        const draftBadge = !a.published
+          ? ' <span style="color:var(--terracotta); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; margin-left:0.5rem;">Draft</span>'
+          : '';
+        return `
+          <div class="announcement">
+            <h3>${escapeHtml(a.title)}${draftBadge}</h3>
+            <div class="meta">${dateStr}</div>
+            <div class="body">${escapeHtml(a.body)}</div>
+          </div>
+        `;
+      }).join('');
+    }
 
   } // end if(user)
 </script>
